@@ -1,0 +1,181 @@
+#!/usr/bin/env zsh
+
+# Inspired/pulled from https://github.com/Phantas0s/.dotfiles/blob/master/aliases/aliases
+
+# +--------+
+# | System |
+# +--------+
+
+alias shutdown='sudo shutdown now'
+alias restart='sudo reboot'
+alias suspend='sudo pm-suspend'
+
+alias bigf= 'find / -xdev -type f -size +500M'  # display "big" files > 500M
+
+
+# +-----+
+# | Zsh |
+# +-----+
+
+# alias kitty='kitty -o allow_remote_control=yes --single-instance --listen-on unix:@mykitty'
+
+alias ez="$EDITOR $HOME/.zshrc"         # open ~/.zshrc in using the default editor specified in $EDITOR
+
+alias sz="source $HOME/.zshrc"          # source ~/.zshrc
+
+# source ~/.zshrc
+alias sc="source $HOME/.zshrc"
+
+
+# +------+
+# | dirs |
+# +------+
+
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias d='dirs -v'
+alias vd='vdir -h'
+for index ({1..9}) alias "$index"="cd +${index}"; unset index # directory stack
+
+
+# +----+
+# | cd |
+# +----+
+
+alias -g ..='cd ..'
+alias -g ...='cd ../..'
+alias -g ....='cd ../../..'
+alias -g .....='cd ../../../..'
+alias /='cd /'
+alias ~='cd ~'
+alias -- -='cd -'
+
+
+# +----+
+# | ls |
+# +----+
+
+alias ls='ls --color=auto'
+alias lsl='ls -lh'
+alias ll='ls -lahF'
+alias lls='ls -lahFtr'
+alias la='ls -alh'
+alias l='ls -CF'
+
+
+# +------+
+# | less |
+# +------+
+
+# using vim syntax highlighting for 'less' output
+# from https://stackoverflow.com/questions/43702876/creating-an-alias-in-bash-to-less-sh-less-vim
+VLESS_CMD=`find /usr/share/vim -name less.sh | tail -n 1`
+if [ -n "$VLESS_CMD" ]; then
+    alias vless=$VLESS_CMD
+fi
+
+# this also works (from the same source):
+# alias vless=`vim -e -T dumb --cmd 'exe "set t_cm=\<C-M>"|echo $VIMRUNTIME|quit' | tr -d '\015' `/macros/less.sh
+
+# +----------+
+# | cp/mv/rm |
+# +----------+
+
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -i'
+
+
+# +------+
+# | grep |
+# +------+
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias diff='diff --color=auto'
+alias ip='ip --color=auto'
+
+
+# +------+
+# | ping |
+# +------+
+
+alias pg='ping 8.8.8.8'
+
+
+# +-------------+
+# | apt/apt-get |
+# +-------------+
+
+alias aptu='sudo apt update'
+alias aptgu='sudo apt-get update'
+alias apti='sudo apt install'
+alias aptgi='sudo apt-get install'
+
+
+# +-----+
+# | vim |
+# +-----+
+
+alias vi='vim'
+alias dvim='vim -u /etc/vim/vimrc'        # launch vim with default config
+alias vimd='vim --noplugin -u NONE'       # launch vim without any plugin or config (debug)
+
+
+# +-----+
+# | Git |
+# +-----+
+
+alias gs='git status'
+alias gss='git status -s'
+alias ga='git add'
+alias gp='git push'
+# alias gpraise='git blame'
+alias gpo='git push origin'
+alias gpt='git push --tag'
+alias gtd='git tag --delete'
+alias gtdr='git tag --delete origin'
+alias grb='git branch -r'                                                                           # display remote branch
+alias gplo='git pull origin'
+alias gb='git branch '
+alias gc='git commit'
+alias gcm='git commig -m'
+alias gd='git diff'
+alias gco='git checkout '
+alias gl='git log --pretty=oneline'
+alias gr='git remote'
+alias grs='git remote show'
+# alias glol='git log --graph --abbrev-commit --oneline --decorate'
+# alias gclean="git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d" # Delete local branch merged with master
+alias gsub="git submodule update --remote"                                                        # pull submodules
+# alias gj="git-jump"                                                                               # Open in vim quickfix list files of interest (git diff, merged...)
+
+alias dif="git diff --no-index"                                                                   # Diff two files even if not in git repo! Can add -w (dont diff whitespaces)
+
+
+# +------+
+# | tmux |
+# +------+
+
+alias tmuxk='tmux kill-session -t'
+alias tmuxa='tmux attach -t'
+alias tmuxl='tmux list-sessions'
+
+
+# +------+
+# | stow |
+# +------+
+
+alias stow='stow --dotfile'
+alias stowdot='stow -v */ --ignore=aliases'
+
+# +----------+
+# | Personal |
+# +----------+
+
+# Folders
+alias work="$HOME/workspace"
+alias doc="$HOME/Documents"
+alias dow="$HOME/Downloads"
+alias dot="$DOTFILES"

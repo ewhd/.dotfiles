@@ -1,37 +1,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" see: https://vi.stackexchange.com/a/20067
-" set runtimepath+=~/.config/vim,~/.config/vim/after
-" set viminfo+=n~/.config/vim/viminfo
-
-" set the runtime path to include Vundle and initialize
-" set rtp+=~/.vim/bundle/Vundle.vim
-" call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-" Plugin 'VundleVim/Vundle.vim'
-
-" Plugin 'preservim/nerdtree'
-" Plugin 'powerline/powerline'
-
-" All of your Plugins must be added before the following line
-" call vundle#end()            " required
-" filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
 
 " Disable viminfo if running as root
 if has("unix")
@@ -41,16 +10,275 @@ if has("unix")
 endif
 
 
-" Set visual preferences 
-colo desert
+if has('autocmd')
+  filetype plugin indent on
+endif
+if has('syntax') && !exists('g:syntax_on')
+  syntax enable
+endif
+
+
+" Set visual preferences
+color gruvbox
+set background=dark
 syntax on
 set number
 set relativenumber
 set visualbell
 set noerrorbells
 
-" highlight matching search strings
-set hlsearch
 
-" make searches case insensitive
-set ignorecase
+set ignorecase " make searches case insensitive
+
+set mouse=a " enable mouse
+
+" Indentation:
+set autoindent " autoindentation is turned on
+set backspace=indent,eol,start " allows backpacing through autoindents, end of line, and past the position where you started Insert mode
+set complete-=i " remove scanning otherfiles  for C-p/n completion cycling
+set complete+=kspell " scan dictionary for completion when spelling is turned on
+set smarttab
+
+set nrformats-=octal " when C-a, do not increment by octal, only the default hex and dec
+
+" ensure that vim receives correct signals from the terminal
+" for more details, see here: https://vi.stackexchange.com/a/24938
+if !has('nvim') && &ttimeoutlen == -1
+  set ttimeout
+  set ttimeoutlen=100
+endif
+
+" Searching:
+set incsearch " highlight all search matches while searching and move cursor
+
+set hlsearch " highlight matching search strings, which will persist after search is exited
+
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
+
+
+" Status Bar:
+" see: https://hackernoon.com/the-last-statusline-for-vim-a613048959b2
+" see: https://jip.dev/posts/a-simpler-vim-statusline/?ref=hackernoon.com
+"
+set laststatus=2 " Status bar is always visible
+set ruler
+set wildmenu
+" set noshowmode " do not show mode in the message line (good for if it is set to be shown in the statusline
+
+
+
+" cribbed from https://github.com/meskarune/dotfiles/blob/master/vim/simplevimrc
+" then modified
+
+" status bar colors
+au InsertEnter * hi statusline guifg=black guibg=#d7afff ctermfg=black ctermbg=magenta
+au InsertLeave * hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=cyan
+hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=cyan
+
+" Status line
+" default: set statusline=%f\ %h%w%m%r\ %=%(%l,%c%V\ %=\ %P%)
+
+
+" Status Line Custom
+let g:currentmode={
+    \ 'n'  : 'Normal',
+    \ 'no' : 'Normal·Operator Pending',
+    \ 'v'  : 'Visual',
+    \ 'V'  : 'V·Line',
+    \ "\<C-v>" : 'V·Block',
+    \ 's'  : 'Select',
+    \ 'S'  : 'S·Line',
+    \ "\<C-s>" : 'S·Block',
+    \ 'i'  : 'Insert',
+    \ 'R'  : 'Replace',
+    \ 'Rv' : 'V·Replace',
+    \ 'c'  : 'Command',
+    \ 'cv' : 'Vim Ex',
+    \ 'ce' : 'Ex',
+    \ 'r'  : 'Prompt',
+    \ 'rm' : 'More',
+    \ 'r?' : 'Confirm',
+    \ '!'  : 'Shell',
+    \ 't'  : 'Terminal'
+    \}
+
+set laststatus=2
+set noshowmode
+set statusline=
+set statusline+=%0*\ %n\                                 " Buffer number
+set statusline+=%1*\ %<%t%m%r%w\                       " File name, modified, readonly, preview
+set statusline+=%3*│                                     " Separator
+set statusline+=%2*\ %Y\                                 " FileType
+set statusline+=%3*│                                     " Separator
+"set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
+"set statusline+=\ (%{&ff})                               " FileFormat (dos/unix..)
+set statusline+=%=                                       " Right Side
+set statusline+=%2*\ col:\ %02v\                         " Colomn number
+set statusline+=%3*│                                     " Separator
+set statusline+=%1*\ ln:\ %02l/%L\ (%3p%%)\              " Line number / total lines, percentage of document
+set statusline+=%0*\ %{toupper(g:currentmode[mode()])}\  " The current mode
+
+hi User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
+hi User2 ctermfg=007 ctermbg=236 guibg=#303030 guifg=#adadad
+hi User3 ctermfg=236 ctermbg=236 guibg=#303030 guifg=#303030
+hi User4 ctermfg=239 ctermbg=239 guibg=#4e4e4e guifg=#4e4e4e
+
+" Change the cursor color and style on mode change
+set gcr=a:block
+set gcr+=o:hor50-Cursor
+set gcr+=n:Cursor
+set gcr+=i-ci-sm:InsertCursor
+set gcr+=r-cr:ReplaceCursor-hor20
+set gcr+=c:CommandCursor
+set gcr+=v-ve:VisualCursor
+set gcr+=a:blinkon0
+
+hi InsertCursor guifg=black guibg=#d7afff ctermfg=black ctermbg=magenta
+hi VisualCursor guifg=black guibg=#d7afff ctermfg=black ctermbg=yellow
+hi ReplaceCursor guifg=black guibg=#d75f5f ctermfg=black ctermbg=darkred
+hi CommandCursor guifg=black guibg=#8fbfdc ctermfg=black ctermbg=cyan
+
+" Highlight current line and allow editing past last character
+set cursorline
+hi CursorLine term=none guibg=#1c1c1c ctermbg=0
+set virtualedit=onemore
+
+" Change leader key to " " (default is \)
+let mapleader = " "
+
+" Write a readonly file using sudo
+" see https://catonmat.net/sudo-vim
+cnoremap w!!! !sudo tee % > /dev/null
+
+" Turn off line wrapping
+" set nowrap
+" Indentation settings
+set autoindent
+set copyindent
+" Set indent to 4 spaces and tab width to 4 spaces
+autocmd FileType * set tabstop=4 | set shiftwidth=4 | set softtabstop=4
+" Set indent and tab width to 2 spaces for html, css and php
+autocmd FileType html set tabstop=2 | set shiftwidth=2 | set softtabstop=2
+autocmd FileType php set tabstop=2 | set shiftwidth=2 | set softtabstop=2
+autocmd FileType css set tabstop=2 | set shiftwidth=2 | set softtabstop=2
+set expandtab
+" Text formating
+set textwidth=80
+set colorcolumn=80
+highlight ColorColumn guibg=#333333 ctermbg=237
+set wrapscan
+
+" Search lower and upper case
+set smartcase
+
+
+
+
+
+
+if !&scrolloff
+  set scrolloff=5
+endif
+if !&sidescrolloff
+  set sidescrolloff=5
+endif
+set display+=lastline
+
+if &listchars ==# 'eol:$'
+  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+endif
+
+if v:version > 703 || v:version == 703 && has("patch541")
+  set formatoptions+=j " Delete comment character when joining commented lines
+endif
+
+if has('path_extra')
+  setglobal tags-=./tags tags-=./tags; tags^=./tags;
+endif
+
+if &shell =~# 'fish$' && (v:version < 704 || v:version == 704 && !has('patch276'))
+  set shell=/usr/bin/env\ bash
+endif
+
+set autoread " when file is changed outside of vim, update file in vim
+
+set history=1000
+if &tabpagemax < 50
+  set tabpagemax=50
+endif
+if !empty(&viminfo)
+  set viminfo^=!
+endif
+set sessionoptions-=options
+set viewoptions-=options
+
+" Allow color schemes to do bright colors without forcing bold.
+if &t_Co == 8 && $TERM !~# '^Eterm'
+  set t_Co=16
+endif
+
+" Load matchit.vim, but only if the user hasn't installed a newer version.
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
+
+if empty(mapcheck('<C-U>', 'i'))
+  inoremap <C-U> <C-G>u<C-U>
+endif
+if empty(mapcheck('<C-W>', 'i'))
+  inoremap <C-W> <C-G>u<C-W>
+endif
+
+" vim:set ft=vim et sw=2:
+
+" Remove all spaces at eol
+nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
+
+" Highlight IP addresses
+syn match ipaddr /\(\(25\_[0-5]\|2\_[0-4]\_[0-9]\|\_[01]\?\_[0-9]\_[0-9]\?\)\.\)\{3\}\(25\_[0-5]\|2\_[0-4]\_[0-9]\|\_[01]\?\_[0-9]\_[0-9]\?\)/
+hi link ipaddr Identifier
+
+
+command! Vb :execute "normal! \<C-v>"           " use command :Vb to enter visual-block mode
+" remap normal Ctrl-V behaviour (enter visual block mode) to a simple q (NOT <C-q>)
+nnoremap q <c-v>
+" remap Q to start macros (qq will still work to enter macro recording as
+" well)
+nnoremap Q q
+
+" allow ; to enter command mode form normal mode
+nnoremap ; :
+
+
+
+" Clipboard stuff
+" see https://stackoverflow.com/questions/44480829/how-to-copy-to-clipboard-in-vim-of-bash-on-windows
+func! GetSelectedText()
+    normal gv"xy
+    let result = getreg("x")
+    return result
+endfunc
+
+if system('uname -r') =~ "microsoft" && executable("clip.exe")
+    noremap <C-C> :call system('clip.exe', GetSelectedText())<CR>
+    noremap <C-X> :call system('clip.exe', GetSelectedText())<CR>gvx
+else
+    if has("clipboard")
+        vnoremap <C-X> "+x
+        vnoremap <S-Del> "+x
+    
+        vnoremap <C-C> "+y
+        vnoremap <C-Insert> "+y
+    
+        map <C-V>       "+gP
+        map <S-Insert>      "+gP
+    
+        cmap <C-V>      <C-R>+
+        cmap <S-Insert>     <C-R>+
+    endif
+endif
+
+

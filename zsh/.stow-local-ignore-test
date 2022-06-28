@@ -1,6 +1,0 @@
-# sotw ignore file for $DOTFILES/zsh/
-
-# scripts.zsh
-# prompt
-
-(?!dot-.*)

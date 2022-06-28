@@ -1,0 +1,23 @@
+# Git ignore rules for ~/.dotfiles
+
+# Ignore everything by default
+**
+
+# Redundantly ignore these for good measure
+*_history
+*_local
+## vim's swap files
+*.sw*
+*~
+
+# Git
+!.gitignore
+!.gitmodules
+
+
+# Vim plugins, ftplugins, syntax etc etc
+!vim/**
+# Do ignore netrw history
+vim/dot-vim/.netrwhist
+
+

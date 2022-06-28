@@ -1,3 +1,7 @@
+
+
+" 256 color sheet: https://www.ditig.com/256-colors-cheat-sheet
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -17,6 +21,11 @@ if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
+" set Ctrl-i to Esc in visual and insert mode, since it feels like the opposite
+" of hitting i and is easier to reach.
+" oh, god, that's already so much better!
+vnoremap <c-i> <esc>
+inoremap <c-i> <esc>
 
 " Set visual preferences
 color gruvbox
@@ -143,8 +152,13 @@ hi CommandCursor guifg=black guibg=#8fbfdc ctermfg=black ctermbg=cyan
 
 " Highlight current line and allow editing past last character
 set cursorline
-hi CursorLine term=none guibg=#1c1c1c ctermbg=0
+hi CursorLine term=none  ctermbg=234 ctermfg=None
 set virtualedit=onemore
+" Change Color when entering Insert Mode
+autocmd InsertEnter * highlight  CursorLine ctermbg=16 ctermfg=None
+" Revert Color to default when leaving Insert Mode
+autocmd InsertLeave * highlight  CursorLine ctermbg=234 ctermfg=None
+
 
 " Change leader key to " " (default is \)
 let mapleader = " "

@@ -1,3 +1,29 @@
 # global stow ignore list
+# Comments and blank lines are allowed.
 
-^(?!dot-).*
+
+# Personal global ignore list
+#^(?!dot-).*
+
+# Default ignore list:
+
+RCS
+.+,v
+
+CVS
+\.\#.+       # CVS conflict files / emacs lock files
+\.cvsignore
+
+\.svn
+_darcs
+\.hg
+
+\.git
+\.gitignore
+
+.+~          # emacs backup files
+\#.*\#       # emacs autosave files
+
+^/README.*
+^/LICENSE.*
+^/COPYING

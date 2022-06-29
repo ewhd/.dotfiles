@@ -25,3 +25,9 @@
 [submodule "vim/dot-vim/pack/plugins/opt/vim-which-key"]
 	path = vim/dot-vim/pack/plugins/opt/vim-which-key
 	url = https://github.com/liuchengxu/vim-which-k.gitey
+[submodule "zsh/plugins/zsh-autosuggestions"]
+	path = zsh/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "zsh/plugins/zsh-syntax-highlighting"]
+	path = zsh/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git

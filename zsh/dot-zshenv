@@ -18,11 +18,8 @@
 # EXPORT ENVIRONMENT VARIABLE #
 ###############################
 
-export TERM='rxvt-256color'
 export DOTFILES="$HOME/.dotfiles"
 # export WORKSPACE="$HOME/workspace"
-
-# [ -f "$DOTFILES/install_config" ] && source "$DOTFILES/install_config"
 
 # XDG
 export XDG_CONFIG_HOME=$HOME/.config
@@ -42,11 +39,6 @@ export HISTSIZE=10000                   # Maximum events for internal history
 export SAVEHIST=$HISTSIZE                   # Maximum events in history file
 
 # other software
-# export TMUXP_CONFIGDIR="$XDG_CONFIG_HOME/tmuxp"
-# export COMPOSER_HOME="$XDG_CONFIG_HOME/composer"
-# export I3_CONFIG="$XDG_CONFIG_HOME/i3"
-# export VIMINIT="source ~/.config/vim/vimrc"
-# export GIMP_VERSION="2.10"
 export SCREENSHOT="$HOME/Documents/images/screenshots"
 
 # Man pages

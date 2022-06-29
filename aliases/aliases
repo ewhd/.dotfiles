@@ -11,7 +11,7 @@ alias restart='sudo reboot'
 alias suspend='sudo pm-suspend'
 
 alias bigf= 'find / -xdev -type f -size +500M'  # display "big" files > 500M
-
+alias cpl='fc -ln -1 | xsel --clipboard'
 
 # +-----+
 # | Zsh |
@@ -146,7 +146,10 @@ alias gco='git checkout '
 alias gl='git log --pretty=oneline'
 alias gr='git remote'
 alias grs='git remote show'
-# alias glol='git log --graph --abbrev-commit --oneline --decorate'
+alias glol='git log --graph --abbrev-commit --oneline --decorate'
+alias ggraph='git log --all --decorate --oneline --graph'
+alias gbest='git log --pretty="%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s %C(auto)%d" -7 --date=short --graph'
+
 # alias gclean="git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d" # Delete local branch merged with master
 alias gsub="git submodule update --remote"                                                        # pull submodules
 # alias gj="git-jump"                                                                               # Open in vim quickfix list files of interest (git diff, merged...)

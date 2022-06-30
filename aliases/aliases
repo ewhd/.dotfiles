@@ -11,7 +11,8 @@ alias restart='sudo reboot'
 alias suspend='sudo pm-suspend'
 
 alias bigf= 'find / -xdev -type f -size +500M'  # display "big" files > 500M
-alias cpl='fc -ln -1 | xsel --clipboard'
+alias cpl='fc -ln -1 | xsel --clipboard'        # copy last comamnd to clipboard
+alias clip='xsel --clipboard'                   # send STDOUT to clipboard
 
 # +-----+
 # | Zsh |

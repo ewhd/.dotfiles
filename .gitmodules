@@ -7,9 +7,6 @@
 [submodule "vim/dot-vim/pack/plugins/opt/mru"]
 	path = vim/dot-vim/pack/plugins/opt/mru
 	url = https://github.com/yegappan/mru.git
-[submodule "vim/dot-vim/pack/plugins/opt/vim-monokai"]
-	path = vim/dot-vim/pack/plugins/opt/vim-monokai
-	url = https://github.com/sickill/vim-monokai.git
 [submodule "vim/dot-vim/pack/plugins/opt/vim-startify"]
 	path = vim/dot-vim/pack/plugins/opt/vim-startify
 	url = https://github.com/mhinz/vim-startify.git

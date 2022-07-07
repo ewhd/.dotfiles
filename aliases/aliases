@@ -11,7 +11,8 @@ alias restart='sudo reboot'
 alias suspend='sudo pm-suspend'
 
 alias bigf= 'find / -xdev -type f -size +500M'  # display "big" files > 500M
-
+alias cpl='fc -ln -1 | xsel --clipboard'        # copy last comamnd to clipboard
+alias clip='xsel --clipboard'                   # send STDOUT to clipboard
 
 # +-----+
 # | Zsh |
@@ -140,13 +141,18 @@ alias grb='git branch -r'                                                       
 alias gplo='git pull origin'
 alias gb='git branch '
 alias gc='git commit'
-alias gcm='git commig -m'
+alias gcm='git commit -m'
+alias gcam='git commit -a -m'
 alias gd='git diff'
 alias gco='git checkout '
+alias gsv='git switch'
 alias gl='git log --pretty=oneline'
 alias gr='git remote'
 alias grs='git remote show'
-# alias glol='git log --graph --abbrev-commit --oneline --decorate'
+alias glol='git log --graph --abbrev-commit --oneline --decorate'
+alias ggraph='git log --all --decorate --oneline --graph'
+alias gbest='git log --pretty="%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s %C(auto)%d" -10 --date=short --graph'
+
 # alias gclean="git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d" # Delete local branch merged with master
 alias gsub="git submodule update --remote"                                                        # pull submodules
 # alias gj="git-jump"                                                                               # Open in vim quickfix list files of interest (git diff, merged...)
@@ -161,7 +167,7 @@ alias dif="git diff --no-index"                                                 
 alias tmuxk='tmux kill-session -t'
 alias tmuxa='tmux attach -t'
 alias tmuxl='tmux list-sessions'
-
+alias tmux='tmux -2'              # see https://unix.stackexchange.com/a/355391 
 
 # +------+
 # | stow |

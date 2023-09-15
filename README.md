@@ -1,6 +1,9 @@
 # .dotfiles
 personal config files
 
+Use to clone vim extension submodules as well:
+`git clone --recurse-submodules https://github.com/ewhd/.dotfiles.git`
+
 Beware, this is very much a work in progress! Many of the config files are more of config piles -- they work, bu I haven't necessarily gone in and added organization and commentary to make them easily readable, nor I have gone through and pruned all my failed experiments. (I'm looking at you, vimrc.) This is still very much the result of my experimentation in learning to use these tools. I've tried to include links to the sources of code which I've copied in, but of course that's hardly perfect and is mostly for my own reference anyway.
 
 ------------------------
